@@ -5,7 +5,7 @@ using UnityEngine.TextCore.Text;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    GameObject knight, peasant, soldier;
+    GameObject knight, peasant, soldier, merchant, priest, thief;
 
     public void SpawnCharacter(GameObject character, string tag)
     {
@@ -31,14 +31,13 @@ public class Spawner : MonoBehaviour
 
     public void RespawnCharacter(Character character)
     {
-        GameObject characterToSpawn = IdentifyCharacterToSpawn(character);
-        StartCoroutine(Timer(3, characterToSpawn, character.tag));
+        StartCoroutine(Timer(3, character, character.tag));
     }
 
-    IEnumerator Timer(int seconds, GameObject character, string tag)
+    IEnumerator Timer(int seconds, Character character, string tag)
     {
         yield return new WaitForSeconds(seconds);
-        SpawnCharacter(character, tag);
+        SpawnCharacter(IdentifyCharacterToSpawn(character), tag);
     }
 
     private GameObject IdentifyCharacterToSpawn(Character character)
@@ -51,6 +50,12 @@ public class Spawner : MonoBehaviour
                 return peasant;
             case Soldier:
                 return soldier;
+            case Merchant:
+                return merchant;
+            case Priest:
+                return priest;
+            case Thief: 
+                return thief;
         }
 
         return null;

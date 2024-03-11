@@ -16,7 +16,7 @@ public class Batler : MonoBehaviour
 
         float defenderHealth = defender.GetHealth();
 
-        if (defenderHealth - damage <= 0)
+        if (defenderHealth - damage <= 0 && defender.IsDead() == false)
         {
             defender.Die();
             Spawner spawner = FindAnyObjectByType<Spawner>();

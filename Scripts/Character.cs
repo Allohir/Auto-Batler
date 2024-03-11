@@ -20,6 +20,7 @@ public class Character : MonoBehaviour
 
     protected float currentHealth;
     protected float attackReloadTime;
+    protected bool isDead;
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Vector2 movement;
@@ -32,6 +33,7 @@ public class Character : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         currentHealth = maxHealth;
+        isDead = false;
     }
     protected void Update()
     {
@@ -105,6 +107,7 @@ public class Character : MonoBehaviour
 
     public void Die()
     {
+        this.isDead = true;
         this.gameObject.AddComponent<DeadCharacter>();
         Destroy(healthBar);
         Destroy(this);
@@ -146,5 +149,10 @@ public class Character : MonoBehaviour
     protected virtual void Attack()
     {
 
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 }
