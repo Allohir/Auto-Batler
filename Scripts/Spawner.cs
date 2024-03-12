@@ -7,13 +7,12 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     GameObject knight, peasant, soldier, merchant, priest, thief;
 
-    public void SpawnCharacter(GameObject character, string tag)
+    public void SpawnCharacter(GameObject character)
     {
         GameObject spawnedCharacter = (GameObject)Instantiate(character);
-        spawnedCharacter.tag = tag;
         spawnedCharacter.transform.SetParent(this.transform);
 
-        switch(tag)
+        switch(character.tag)
         {
             case "BlueTeam":
                 spawnedCharacter.transform.localPosition = new Vector2(-500 + Random.Range(-50, 50), 0 + Random.Range(-50, 50));
@@ -37,25 +36,43 @@ public class Spawner : MonoBehaviour
     IEnumerator Timer(int seconds, Character character, string tag)
     {
         yield return new WaitForSeconds(seconds);
-        SpawnCharacter(IdentifyCharacterToSpawn(character), tag);
+        SpawnCharacter(IdentifyCharacterToSpawn(character, tag));
     }
 
-    private GameObject IdentifyCharacterToSpawn(Character character)
+    private GameObject IdentifyCharacterToSpawn(Character character, string tag)
     {  
         switch (character)
         {
             case Knight:
-                return knight;
+                {
+                    knight.tag = tag;
+                    return knight;
+                }
             case Peasant:
-                return peasant;
+                {
+                    peasant.tag = tag;
+                    return peasant;
+                }
             case Soldier:
-                return soldier;
+                {
+                    soldier.tag = tag;
+                    return soldier;
+                }
             case Merchant:
-                return merchant;
+                {
+                    merchant.tag = tag;
+                    return merchant;
+                }
             case Priest:
-                return priest;
-            case Thief: 
-                return thief;
+                {
+                    priest.tag = tag;
+                    return priest;
+                }
+            case Thief:
+                {
+                    thief.tag = tag;
+                    return thief;
+                }
         }
 
         return null;
